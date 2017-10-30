@@ -7,7 +7,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { debounce, defer } from 'lodash';
+import { defer } from 'lodash';
 import debugFactory from 'debug';
 
 /**
@@ -210,9 +210,10 @@ export default class Step extends Component {
 		return this.lastTransitionTimestamp && Date.now() - this.lastTransitionTimestamp < 500;
 	}
 
-	onScrollOrResize = debounce( () => {
+	onScrollOrResize = () => {
+		requestAnimationFrame( this.onScrollOrResize );
 		this.setStepPosition( this.props );
-	}, 50 );
+	};
 
 	setStepPosition( props, shouldScrollTo ) {
 		const { placement, target } = props;

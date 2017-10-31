@@ -27,7 +27,7 @@ import { decodeEntities, stripHTML } from 'lib/formatting';
 import { getPostCommentsTree } from 'state/comments/selectors';
 import { getSitePost } from 'state/posts/selectors';
 import getSiteComment from 'state/selectors/get-site-comment';
-import { getSite, isJetpackMinimumVersion, isJetpackSite } from 'state/sites/selectors';
+import { isJetpackMinimumVersion, isJetpackSite } from 'state/sites/selectors';
 import { bumpStat, composeAnalytics, recordTracksEvent } from 'state/analytics/actions';
 
 /**
@@ -266,7 +266,6 @@ export class CommentDetail extends Component {
 			refreshCommentData,
 			repliedToComment,
 			replyComment,
-			site,
 			siteBlacklist,
 			siteId,
 			translate,
@@ -318,7 +317,6 @@ export class CommentDetail extends Component {
 					isExpanded={ isExpanded }
 					postId={ postId }
 					postTitle={ postTitle }
-					site={ site }
 					toggleApprove={ this.toggleApprove }
 					toggleEditMode={ this.toggleEditMode }
 					toggleExpanded={ this.toggleExpanded }
@@ -450,7 +448,6 @@ const mapStateToProps = ( state, ownProps ) => {
 		postTitle,
 		repliedToComment: get( comment, 'replied' ), // TODO: not available in the current data structure
 		siteId: get( comment, 'siteId', siteId ),
-		site: getSite( state, siteId ),
 	};
 };
 
